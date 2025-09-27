@@ -5,4 +5,7 @@ SSL_KEY="/etc/nginx/ssl/inception.key"
 
 if [! -f "${SSL_CERT}"]; then
     mkdir -p /etc/ngnix/ssl
-    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout SSL_KEY -
+    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout "{$SSL_KEY}" -out "{$SSL_CERT}" -subj "/C=MA/ST=BENGREUIR/L=Bengreuir/O=1337/OU=student/CN=${DOMAIN_NAME}"
+fi
+
+exec "$@"
