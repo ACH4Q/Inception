@@ -1,9 +1,13 @@
 FROM debian:bullseye
 
-RUN sudo apt -y update && sudo apt install -y ngnix && sudo apt install openssl -y
+RUN sudo apt -y update && sudo apt install -y nginx && sudo apt install openssl -y
 
-COPY ./cinf/default /etc/ngnix/sites
+COPY ./conf/default_conf.conf /etc/ngnix/conf.d/default.conf
 
-COPY ./tools/entrypoint.sh /
+COPY tools/entrypoint.sh /entrypoint.sh
 
-CMD ["/entrypoint.sh"]
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+
+CMD ["nginx", "-g", "daemon off;"]
