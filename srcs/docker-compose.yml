@@ -40,9 +40,11 @@ services:
     depends_on:
       - wordpress
     restart: always
+
 networks:
   inception:
     driver: bridge
+    
 volumes:
   mariadb_data:
     driver: local

@@ -17,4 +17,5 @@ COPY tools/setup.sh /setup.sh
 RUN chmod +x /setup.sh
 
 ENTRYPOINT ["/setup.sh"]
+
 CMD ["php-fpm7.4", "-F"]

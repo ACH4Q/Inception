@@ -13,4 +13,5 @@ mysql -u root -e "GRANT ALL PRIVILEGES ON \`${MYSQL_DATABASE}\`.* TO \`${MYSQL_U
 mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';"
 mysql -u root -e "FLUSH PRIVILEGES;"
 mysqladmin -u root -p${MYSQL_ROOT_PASSWORD} shutdown
+
 exec "$@"

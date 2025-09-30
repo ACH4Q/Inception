@@ -20,4 +20,5 @@ else
     echo "WordPress is already installed."
 fi
 chown -R www-data:www-data /var/www/html
+
 exec "$@"
