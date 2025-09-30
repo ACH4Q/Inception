@@ -10,10 +10,11 @@ COPY conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 RUN mkdir -p /var/www/html
 
+RUN mkdir -p /run/php
+
 COPY tools/setup.sh /setup.sh
 
 RUN chmod +x /setup.sh
 
 ENTRYPOINT ["/setup.sh"]
-
 CMD ["php-fpm7.4", "-F"]
