@@ -51,10 +51,10 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/home/machaq/data/mariadb'
+      device: '/home/ach4q/data/mariadb'
   wordpress_files:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/home/machaq/data/wordpress'
+      device: '/home/ach4q/data/wordpress'
