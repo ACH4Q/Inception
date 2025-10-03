@@ -18,4 +18,4 @@ RUN chmod +x /setup.sh
 
 ENTRYPOINT ["/setup.sh"]
 
-CMD ["php-fpm7.4", "-F"]
+CMD ["php-fpm7.4", "-F"] 
