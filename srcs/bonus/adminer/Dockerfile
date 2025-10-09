@@ -1,7 +1,9 @@
-FROM debian:bullseye
+FROM    debian:bullseye
 
-RUN apt-get update && apt-get install -y ssh
+RUN     apt update && apt install -y php php-mysqli wget unzip
 
-ENTRYPOINT ["/setup.sh"]
+RUN     mkdir -p /var/www/html &&  wget "https://github.com/vrana/adminer/releases/download/v5.3.0/adminer-5.3.0.php" -O /var/www/html/index.php
 
-CMD ["php-fpm7.4", "-F"]
+EXPOSE  8080
+
+CMD     ["php", "-S", "0.0.0.0:8080", "-t", "/var/www/html"]
