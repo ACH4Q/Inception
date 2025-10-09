@@ -1,8 +1,8 @@
 FROM    debian:bullseye
 
-RUN     apt update && apt install -y php php-mysqli wget unzip
+RUN     apt update && apt install -y php php-mysql wget unzip
 
-RUN     mkdir -p /var/www/html &&  wget "https://github.com/vrana/adminer/releases/download/v5.3.0/adminer-5.3.0.php" -O /var/www/html/index.php
+RUN     mkdir -p /var/www/html && wget "https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php" -O /var/www/html/index.php
 
 EXPOSE  8080
 

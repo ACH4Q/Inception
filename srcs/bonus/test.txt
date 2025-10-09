@@ -1,0 +1,57 @@
+FROM    debian:bullseye
+
+RUN     apt update && apt install -y php php-mysqli wget unzip
+
+RUN     mkdir -p /var/www/html &&  wget "https://github.com/vrana/adminer/releases/download/v5.3.0/adminer-5.3.0.php" -O /var/www/html/index.php
+
+EXPOSE  8080
+
+CMD     ["php", "-S", "0.0.0.0:8080", "-t", "/var/www/html"]
+FROM debian:bullseye
+
+RUN apt update && apt install -y redis-server
+
+CMD ["redis-server","--protected-mode", "no"];FROM        debian:bullseye
+
+RUN     apt update && apt install -y curl ca-certificates libssl-dev libsqlite3-0 libcurl4 libuuid1 && mkdir -p /opt/portainer
+
+RUN     curl -L https://github.com/portainer/portainer/releases/download/2.20.2/portainer-2.20.2-linux-amd64.tar.gz -o /opt/portainer/portainer.tar.gz && tar -xzf /opt/portainer/portainer.tar.gz -C /opt/portainer --strip-components=1 && rm /opt/portainer/portainer.tar.gz && chmod +x /opt/portainer/portainer
+
+RUN     mkdir -p /data
+
+EXPOSE  9999
+
+CMD ["/opt/portainer/portainer", "--data", "/data", "--bind", ":9999"]
+FROM debian:bullseye
+
+RUN apt-get update -y && apt-get install -y vsftpd openssl
+
+COPY 
+
+ENTRYPOINT ["entrypoint.sh"]
+
+CMD ["vsftpd", "/etc/vsftpd.conf"]#!/bin/bash
+
+useradd -m -d /var/www/html ${FTP_USER}
+
+echo "${FTP_USER}:${FTP_PASSWORD}" | chpasswd
+
+cat << EOF > /etc/vsftpd.conf
+listen=YES
+listen_ipv6=NO
+connect_from_port_20=YES
+anonymous_enable=NO
+local_enable=YES
+write_enable=YES
+chroot_local_user=YES
+allow_writeable_chroot=YES
+secure_chroot_dir=/var/run/vsftpd/empty
+pam_service_name=vsftpd
+pasv_enable=YES
+pasv_min_port=21000
+pasv_max_port=21010
+user_sub_token=${FTP_USER}
+local_root=/var/www/html
+EOF
+
+exec "$@"

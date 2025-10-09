@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 RUN apt-get update -y && apt-get install -y vsftpd openssl
 
-COPY 
+COPY tools/entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["entrypoint.sh"]
 
