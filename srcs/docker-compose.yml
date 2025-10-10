@@ -100,7 +100,7 @@ services:
     container_name: website
     restart: always
     ports:
-      - "42:80"
+      - "4242:80"
     networks:
       - inception
 
