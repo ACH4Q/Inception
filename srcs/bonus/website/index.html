@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Leonardo da Vinci - Art Gallery</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-900 text-gray-200">
+        <header class="text-center py-12">
+            <h1 class="text-5xl font-bold text-white mb-2">Leonardo da Vinci</h1>
+            <p class="text-xl text-gray-400">A Gallery of Genius</p>
+        </header>
+        <main id="gallery-container" class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-12">
+        </main>
+        <footer class="py-6 text-center text-gray-500">
+            <p>Inception Project Bonus Part | Static Webpage</p>
+        </footer>
+        <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+            <div class="bg-gray-800 p-4 rounded-lg shadow-xl max-w-3xl max-h-[90vh] relative text-center">
+                <span id="modal-close" class="absolute top-0 right-3 text-white text-4xl font-bold cursor-pointer">&times;</span>
+                <img id="modal-image" src="" alt="Artwork" class="w-full h-auto object-contain max-h-[70vh]">
+                <div class="p-4">
+                    <h3 id="modal-title" class="text-2xl font-semibold text-white"></h3>
+                    <p id="modal-description" class="text-gray-400 mt-2"></p>
+                </div>
+            </div>
+        </div>
+        <script>
+            const arts = [
+                {
+                    image : 'Ginevra.jpg',
+                    title: 'Ginevra de Benci',
+                    description: 'The Benci family was one of the great families of Florence.'
+                },
+                {
+                    image : 'monalisa.jpg',
+                    title: 'The Famous Mona Lisa',
+                    description: 'The Mona Lisa is the portrait of a young woman, against a background of a mountainous landscape.'
+                },
+                {
+                    image : 'rocks.jpg',
+                    title: 'Virgin of the Rocks',
+                    description: 'Depicts the Virgin Mary in a rocky grotto with her child.'
+                },
+                {
+                    image : 'mundi.jpg',
+                    title: 'Salvator Mundi',
+                    description: 'A representation of Christ as Savior of the World.'
+                },
+                {
+                    image : 'ermine.jpg',
+                    title: 'Lady with an Ermine',
+                    description: 'A portrait of Cecilia Gallerani.'
+                },
+                {
+                    image : 'madonna.jpg',
+                    title: 'Madonna Litta',
+                    description: 'The eyes chico, they never lie.'
+                },
+                {
+                    image : 'inthree.jpg',
+                    title: 'Head of a Woman',
+                    description: 'A study of a woman\'s head in three different views.'
+                },
+                {
+                    image : 'sheet.jpg',
+                    title: 'Study of a Flying Machine',
+                    description: 'A small sheet page of da Vinci\'s drawings.'
+                },
+                {
+                    image : 'virgin.jpg',
+                    title: 'The Virgin and Child with Saint Anne',
+                    description: 'Depicting Saint Anne, her daughter the Virgin Mary, and the infant Jesus.'
+                },
+                {
+                    image : 'vst.jpg',
+                    title: 'The Virgin and Child with St. Anne and John the Baptist',
+                    description: 'A full-scale cartoon for a painting.'
+                },
+                {
+                    image: 'wreath.jpg',
+                    title: 'Wreath of Laurel, Palm, and Juniper',
+                    description: 'Inscribed with the motto Virtutem Forma Decorat ("Beauty adorns Virtue").'
+                }
+            ];
+            const galleryContainer = document.getElementById('gallery-container');
+            const imageModal = document.getElementById('image-modal');
+            const modalImage = document.getElementById('modal-image');
+            const modalTitle = document.getElementById('modal-title');
+            const modalDescription = document.getElementById('modal-description');
+            const modalCloseBtn = document.getElementById('modal-close');
+            arts.forEach(art => {
+                const cardHTML = `
+                    <div class="artwork-card bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 cursor-pointer"
+                         data-image="${art.image}"
+                         data-title="${art.title}"
+                         data-description="${art.description}">
+                        <img src="${art.image}" alt="${art.title}" class="w-full h-64 object-cover">
+                        <div class="p-6">
+                            <h2 class="text-2xl font-semibold text-white">${art.title}</h2>
+                            <p class="text-gray-400 mt-2">${art.description}</p>
+                        </div>
+                    </div>
+                `;
+                galleryContainer.innerHTML += cardHTML;
+            });
+            galleryContainer.addEventListener('click', (event) => {
+                const clickedCard = event.target.closest('.artwork-card');
+
+                if (clickedCard) {
+                    const imageSrc = clickedCard.dataset.image;
+                    const title = clickedCard.dataset.title;
+                    const description = clickedCard.dataset.description;
+
+                    modalImage.src = imageSrc;
+                    modalTitle.textContent = title;
+                    modalDescription.textContent = description;
+
+                    imageModal.classList.remove('hidden');
+                }
+            });
+            const closeModal = () => {
+                imageModal.classList.add('hidden');
+            };
+            modalCloseBtn.addEventListener('click', closeModal);
+
+            imageModal.addEventListener('click', (event) => {
+                if (event.target === imageModal) {
+                    closeModal();
+                }
+            });
+
+            window.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && !imageModal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+        </script>
+    </body>
+</html>
