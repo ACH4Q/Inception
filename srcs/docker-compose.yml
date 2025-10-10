@@ -1,8 +1,6 @@
-
-version: '3.8'
+name: inception
 
 services:
-
   mariadb:
     build:
       context: ./mariadb
@@ -75,6 +73,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
+
   redis:
     build:
       context: ./bonus/redis
@@ -82,6 +81,7 @@ services:
     networks:
       - inception
     restart: always
+
   adminer:
     build:
       context: ./bonus/adminer
@@ -114,10 +114,10 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/home/achaq/data/mariadb'
+      device: '${DATA_PATH}/mariadb'
   wordpress_files:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/home/achaq/data/wordpress'
+      device: '${DATA_PATH}/wordpress'
