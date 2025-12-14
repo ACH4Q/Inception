@@ -3,7 +3,7 @@ name: inception
 services:
   mariadb:
     build:
-      context: ./mariadb
+      context: ./requirements/mariadb
     container_name: mariadb
     networks:
       - inception
@@ -14,7 +14,7 @@ services:
 
   wordpress:
     build:
-      context: ./wordpress
+      context: ./requirements/wordpress
     container_name: wordpress
     networks:
       - inception
@@ -28,7 +28,7 @@ services:
 
   nginx:
     build:
-      context: ./nginx
+      context: ./requirements/nginx
     container_name: nginx
     networks:
       - inception
@@ -43,7 +43,7 @@ services:
 
   ftp:
     build:
-      context: ./bonus/ftp
+      context: ./requirements/bonus/ftp
     container_name: ftp
     networks:
       - inception
@@ -59,7 +59,7 @@ services:
 
   netdata:
     build:
-      context: ./bonus/netdata
+      context: ./requirements/bonus/netdata
     container_name: netdata
     cap_add:
       - SYS_PTRACE
@@ -76,7 +76,7 @@ services:
 
   redis:
     build:
-      context: ./bonus/redis
+      context: ./requirements/bonus/redis
     container_name: redis
     networks:
       - inception
@@ -84,7 +84,7 @@ services:
 
   adminer:
     build:
-      context: ./bonus/adminer
+      context: ./requirements/bonus/adminer
     container_name: adminer
     networks:
       - inception
@@ -96,7 +96,7 @@ services:
 
   website:
     build:
-      context: ./bonus/website
+      context: ./requirements/bonus/website
     container_name: website
     restart: always
     ports:
